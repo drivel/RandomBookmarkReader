@@ -1,0 +1,32 @@
+{
+    "background": {
+        "scripts": ["scripts/background.js"],
+        "persistent": true
+      },
+    "browser_action": {
+       "default_icon": {
+          "128": "images/icon128.png",
+          "16": "images/icon16.png",
+          "32": "images/icon32.png",
+          "48": "images/icon48.png"
+       },
+       "default_popup": "popup.htm",
+       "default_title": "Random Bookmark Reader"
+    },
+    "description": "Random Bookmark Reader is a fork of the defunct Local Read Later extension for Chrome.",
+    "icons": {
+       "128": "images/icon128.png",
+       "16": "images/icon16.png",
+       "32": "images/icon32.png",
+       "48": "images/icon48.png"
+    },
+    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsw1lfEG5iF4B2dJpRqeAJInf+pI8bLMbkYqAQPlpXTX6xFyOfaWNxHtFioqh4XEhFzitHEZVQglI8zZhti4y1z2O7ifQqY7jnS5eWPDcT+KnbZY7kPv2lk+YOdnT4VlC3BFyQOCwkG4dSJtce+ILvDmIP5aSMxzc33ju/4yhHr74yHTIUAw6n81SB7Th35GRC9Kqp+QK8HRN/PyinEqSQB/y4rahy7jr4Te1t9BFZ4+ONvBNkWjYpm6JTlmnsJF/Obvx6UOWpXlfMVpEWlM16W/WoRFuOtrbNkfLpI5LyJshDpg66xDmmNItHc8ElgGLz/cyxW20x+7ZhnXnZm0G7QIDAQAB",
+    "manifest_version": 2,
+    "name": "Random Bookmark Reader",
+    "options_ui": {
+        "chrome_style": true,
+        "page": "options.htm"
+      },
+    "permissions": [ "bookmarks", "chrome://favicon/", "tabs" ],
+    "version": "0.1"
+ }

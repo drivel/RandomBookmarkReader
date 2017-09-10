@@ -1,0 +1,44 @@
+﻿<head>
+	<link rel="stylesheet" href="options.css">
+</head>
+
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th colspan="2">Options</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td colspan="2">
+					<label for="rbrFd">Bookmark Folder</label>
+					<input type="text" name="rbrFd" id="rbrFd" value="TODO">
+				</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="delOnRead" id="delOnRead" value="" checked></td>
+				<td><label for="delOnRead">Delete Bookmark After Reading</label></td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="showUnread" id="showUnread" value="" checked></td>
+				<td><label for="showUnread">Show Unread Badge Text</label></td>
+			</tr>
+			<tr>
+				<td><input type="color" name="showUnreadColor" id="showUnreadColor" value="#0099bb"></td>
+				<td><label for="showUnreadColor">Change Badge Text Color</label></td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="openNewTab" id="openNewTab" value="" checked></td>
+				<td><label for="openNewTab">Open Bookmarks in New Tab?</label></td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="showPopup" id="showPopup" value="" checked></td>
+				<td><label type="showPopup">Use Popup Dialog</label></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<script src="scripts/jquery-3.2.1.min.js"></script>
+	<script src="scripts/options.js"></script>
+</body>
