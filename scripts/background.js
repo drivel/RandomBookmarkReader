@@ -1,29 +1,47 @@
-var rbrOption = {
-	rbrFd: 'My Bookmark Reader',
-	delOnRead: true,
-	showUnread: true,
-	showUnreadColor: '#0099bb',
-	openNewTab: true,
-	showPopup: true
-};
+var rbrFd = 'My Bookmark Reader';
+var delOnRead = false;
+var showUnread = true;
+var showUnreadColor = '#0099bb';
+var openNewTab = false;
+var showPopup = true;
 
-if (!localStorage[rbrOption['rbrFd']])
-	localStorage[rbrOption['rbrFd']] = rbrOption['rbrFd'];
+if (!localStorage.getItem('rbrFd'))
+	localStorage.setItem( 'rbrFd', rbrFd );
 
-if (!localStorage[rbrOption['delOnRead']])
-	localStorage[rbrOption['delOnRead']] = rbrOption['delOnRead'];
+if (!localStorage.getItem('delOnRead'))
+	localStorage.setItem( 'delOnRead', delOnRead );
 
-if (!localStorage[rbrOption['showUnread']])
-	localStorage[rbrOption['showUnread']] = rbrOption['showUnread'];
+if (!localStorage.getItem('showUnread'))
+	localStorage.setItem( 'showUnread', showUnread );
 
-if (!localStorage[rbrOption['showUnreadColor']])
-	localStorage[rbrOption['showUnreadColor']] = rbrOption['showUnreadColor'];
+if (!localStorage.getItem('showUnreadColor'))
+	localStorage.setItem( 'showUnreadColor', showUnreadColor );
 
-if (!localStorage[rbrOption['openNewTab']])
-	localStorage[rbrOption['openNewTab']] = rbrOption['openNewTab'];
+if (!localStorage.getItem('openNewTab'))
+	localStorage.setItem( 'openNewTab', openNewTab );
 
-if (!localStorage[rbrOption['showPopup']])
-	localStorage[rbrOption['showPopup']] = rbrOption['showPopup'];
+if (!localStorage.getItem('showPopup'))
+	localStorage.setItem( 'showPopup', showPopup );
+
+	////////////////////
+
+// if (!localStorage[rbrFd])
+// 	localStorage[rbrFd] = rbrFd;
+
+// if (!localStorage[delOnRead])
+// 	localStorage[delOnRead] = delOnRead;
+
+// if (!localStorage[showUnread])
+// 	localStorage[showUnread] = showUnread;
+
+// if (!localStorage[showUnreadColor])
+// 	localStorage[showUnreadColor] = showUnreadColor;
+
+// if (!localStorage[openNewTab])
+// 	localStorage[openNewTab] = openNewTab;
+
+// if (!localStorage[showPopup])
+// 	localStorage[showPopup] = showPopup;
 
 var otherFdId = null;
 var rbrFdId = null;
@@ -37,14 +55,14 @@ function getRbrFd() {
 
 		chrome.bookmarks.getChildren(otherFdId, function (folders) {
 			for (var i = 0; i < folders.length; i++) {
-				if (folders[i].title == rbrOption['rbrFd']) {
+				if (folders[i].title == get_option('rbrFd')) {
 					setRbrFd(folders[i]);
 					break;
 				}
 			}
 
 			if (rbrFdId == null) {
-				chrome.bookmarks.create({ 'parentId': otherFdId, 'title': rbrOption['rbrFd'] }, function (newFolder) {
+				chrome.bookmarks.create({ 'parentId': otherFdId, 'title': get_option('rbrFd') }, function (newFolder) {
 					setRbrFd(newFolder);
 				})
 			}
@@ -73,8 +91,9 @@ function setRbrFd(folder) {
 // 	chrome.browserAction.setBadgeBackgroundColor({ color: rbrOption['showUnreadColor'] });
 // }
 
-function delOnRead(bm) {
-	if (rbrOption['delOnRead']) {
+function delBm(bm) {
+	console.log('DELETE? ' + get_option('delOnRead'));
+	if ( get_option('delOnRead') === true ) {
 		chrome.bookmarks.remove(bm.id);
 		//updateBadge();
 	}
@@ -83,17 +102,30 @@ function delOnRead(bm) {
 // get options
 
 function get_option(option) {
-	return localStorage[rbrOption[option]];
+	value = localStorage.getItem(option);
+
+	// enforce boolean if boolean
+	switch (value) {
+		case 'true':
+			return true;
+			break;
+		case 'false':
+			return false;
+			break;
+		default:
+			return value;
+	}
 }
 
 // // set options
 
 function set_option(option, value) {
-	return localStorage[rbrOption[option]] = value;
+	localStorage.setItem( option, value );
 }
 
 // document ready
 
 document.addEventListener('DOMContentLoaded', function () {
 	getRbrFd();
+	console.log("test1");
 });

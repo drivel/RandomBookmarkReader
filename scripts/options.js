@@ -15,17 +15,17 @@ function updateOptions() {
 		console.log('rbrF: ' + bg.get_option('rbrFd'));
 	});
 
-	$('#delOnRead').attr( 'checked', bg.get_option('delOnRead') );
+	$('#delOnRead').prop( 'checked', bg.get_option('delOnRead') );
 	$('#delOnRead').click(function() {
 		console.log('delOnRead: ' + bg.get_option('delOnRead'));
-		bg.set_option( 'delOnRead', $('#delOnRead').is(':checked') );
+		bg.set_option( 'delOnRead', $('#delOnRead').prop('checked') );
 		console.log('delOnRead: ' + bg.get_option('delOnRead'));
 	});
 	
-	$('#showUnread').attr( 'checked', bg.get_option('showUnread') );
+	$('#showUnread').prop( 'checked', bg.get_option('showUnread') );
 	$('#showUnread').click(function() {
 		console.log('showUnread: ' + bg.get_option('showUnread'));
-		bg.set_option( 'showUnread', $('#showUnread').is(':checked') );
+		bg.set_option( 'showUnread', $('#showUnread').prop('checked') );
 		console.log('showUnread: ' + bg.get_option('showUnread'));
 	});
 
@@ -36,17 +36,17 @@ function updateOptions() {
 		console.log('showUnreadColor: ' + bg.get_option('showUnreadColor'));
 	});
 	
-	$('#openNewTab').attr( 'checked', bg.get_option('openNewTab') );
+	$('#openNewTab').prop( 'checked', bg.get_option('openNewTab') );
 	$('#openNewTab').click(function() {
 		console.log('openNewTab: ' + bg.get_option('openNewTab'));
-		bg.set_option( 'openNewTab', $('#openNewTab').is(':checked') );
+		bg.set_option( 'openNewTab', $('#openNewTab').prop('checked') );
 		console.log('openNewTab: ' + bg.get_option('openNewTab'));
 	});
 	
-	$('#showPopup').attr( 'checked', bg.get_option('showPopup') );
+	$('#showPopup').prop( 'checked', bg.get_option('showPopup') );
 	$('#showPopup').click(function() {
 		console.log('showPopup: ' + bg.get_option('showPopup'));
-		bg.set_option( 'showPopup', $('#showPopup').is(':checked') );
+		bg.set_option( 'showPopup', $('#showPopup').prop('checked') );
 		console.log('showPopup: ' + bg.get_option('showPopup'));
 	});
 }

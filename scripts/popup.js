@@ -18,7 +18,7 @@ function makeItSo() {
 				chrome.bookmarks.get(this.id, function (bm) {
 					chrome.tabs.update(null, { url: bm[0].url });
 
-					bg.delOnRead(bm[0]);
+					bg.delBm(bm[0]);
 					self.close();
 				});
 			});
