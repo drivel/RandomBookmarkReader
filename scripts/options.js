@@ -27,6 +27,7 @@ function updateOptions() {
 		console.log('showUnread: ' + bg.get_option('showUnread'));
 		bg.set_option( 'showUnread', $('#showUnread').prop('checked') );
 		console.log('showUnread: ' + bg.get_option('showUnread'));
+		bg.updateBadge();
 	});
 
 	$('#showUnreadColor').val( bg.get_option('showUnreadColor') );
@@ -34,6 +35,7 @@ function updateOptions() {
 		console.log('showUnreadColor: ' + bg.get_option('showUnreadColor'));
     bg.set_option( 'showUnreadColor', $('#showUnreadColor').val() );
 		console.log('showUnreadColor: ' + bg.get_option('showUnreadColor'));
+		bg.updateBadge();
 	});
 	
 	$('#openNewTab').prop( 'checked', bg.get_option('openNewTab') );
