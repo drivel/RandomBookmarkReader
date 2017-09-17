@@ -2,15 +2,18 @@
 var bg = chrome.extension.getBackgroundPage();
 
 function makeItSo() {
-	$('#bookmarks').empty();
+
+	// TODO sloppy, get info from updateBadge();
 	chrome.bookmarks.getChildren(bg.rbrFdId, function (bmArr) {
-		if (bmArr.length == 0) {
-			$('body').empty();
-			$('<p class="empty">No bookmarks found.</p>').appendTo('body');
-		} else {
+		var unreadCount = bmArr.length;
+
+		if (unreadCount !== 0) {
+
+			$("body").empty();
+			$("<ul class='bookmarks'>").appendTo("body")
 			$.each(bmArr, function (pos, bm) {
-				$('<li id="' + bm.id + '" title="' + bm.title + '&#13;' + bm.url + '">').appendTo('#bookmarks');
-				$('<h2><img src="chrome://favicon/' + bm.url + '" width="16" height="16"> ' + bm.title + '</h2>').appendTo('li#' + bm.id);
+				$('<li id="' + bm.id + '" title="' + bm.title + '&#13;' + bm.url + '">').appendTo('.bookmarks');
+				$('<h2><img src="chrome://favicon/' + bm.url + '" width="16" height="16" class="icon"> ' + bm.title + '</h2>').appendTo('li#' + bm.id);
 				$('<a>' + bm.url + '</a>').appendTo('li#' + bm.id);
 			});
 
@@ -25,31 +28,11 @@ function makeItSo() {
 			});
 
 		}
-	});
-}
 
-// TODO move to background.js
-// TODO merge to openLink() function
-
-function openInCurrentTab(itemID) {
-	chrome.bookmarks.get(itemID, function (bm) {
-		chrome.tabs.update(null, { url: bm[0].url });
-
-		bg.delBm(bm[0]);
-		self.close();
-	});
-}
-
-function openInNewTab(itemID) {
-	chrome.bookmarks.get(itemID, function (bm) {
-		chrome.tabs.create({ url: bm[0].url });
-
-		bg.delBm(bm[0]);
-		self.close();
+		bg.updateBadge();
 	});
 }
 
 document.addEventListener('DOMContentLoaded', function () {
 	makeItSo();
-	bg.updateBadge();
 });

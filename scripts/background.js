@@ -30,7 +30,8 @@ if (!localStorage.getItem('showPopup'))
 var otherFdId = null;
 var rbrFdId = null;
 
-var unreadCount = null;
+// TODO
+var unreadCount = "";
 
 // get bookmark folder or create one
 
@@ -48,7 +49,7 @@ function getRbrFd() {
 				}
 			}
 
-			if (rbrFdId == null) {
+			if (rbrFdId === null) {
 				chrome.bookmarks.create({ 'parentId': otherFdId, 'title': get_option('rbrFd') }, function (newFolder) {
 					setRbrFd(newFolder);
 				})
@@ -62,35 +63,24 @@ function getRbrFd() {
 
 function setRbrFd(folder) {
 	rbrFdId = folder.id;
-
-	chrome.bookmarks.getChildren(rbrFdId, function (folder) {
-		unreadCount = folder.length.toString();
-		
-		updateBadge();
-	});
+	
+	updateBadge();
 }
 
-// update badge
-// TODO option check
-// TODO FIX doesn't update until popup.js opens again
-
 function updateBadge() {
-	text = '';
 
-	if (get_option('showUnread')) {
-		chrome.bookmarks.getChildren(rbrFdId, function (childArr) {
-			unreadCount = childArr.length;
+	if (get_option("showUnread")) {
+		chrome.bookmarks.getChildren(rbrFdId, function (bmArr) {
+			var unreadCount = bmArr.length;
+			
+			chrome.browserAction.setBadgeText({ text: unreadCount.toString() });
 		});
-
-		text = unreadCount.toString();
-		
-		chrome.browserAction.setBadgeBackgroundColor({ color: get_option('showUnreadColor') });
 	} else {
-		text = '';
+		var unreadCount = "";
+		chrome.browserAction.setBadgeText({ text: unreadCount.toString() });
 	}
 
-	chrome.browserAction.setBadgeText({ text: text });
-	console.log("updateBadge fired");
+	chrome.browserAction.setBadgeBackgroundColor({ color: get_option("showUnreadColor") });
 }
 
 // open bookmark
@@ -113,10 +103,12 @@ function openLink(itemID, button) {
 
 function delBm(bm) {
 	if ( get_option('delOnRead') === true ) {
-		chrome.bookmarks.remove(bm.id);
+		chrome.bookmarks.remove(bm.id, function () {
+			updateBadge();
+		});
 	}
 
-	updateBadge();
+	// updateBadge();
 }
 
 // get options
